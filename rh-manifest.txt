@@ -8,4 +8,4 @@ knative 1.5.0 https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/serve
 rhoas 0.52.0 https://github.com/redhat-developer/app-services-cli/tree/v0.52.0
 submariner 0.14.1 https://github.com/submariner-io/subctl/tree/v0.14.1
 kubevirt 0.58.0 https://github.com/kubevirt/kubevirt/tree/v0.58.0
-skupper 1.3.0 https://github.com/skupperproject/skupper/tree/1.3.0
+skupper 1.4.1 https://github.com/skupperproject/skupper/tree/1.4.1
