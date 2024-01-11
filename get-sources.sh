@@ -96,13 +96,6 @@ tar xzf kn-linux-amd64.tar.gz -C "$CONTAINER_USR_BIN_DIR" kn-linux-amd64
 mv "$CONTAINER_USR_BIN_DIR/kn-linux-amd64" "$CONTAINER_USR_BIN_DIR/kn"
 rm -rf "${TMPDIR:?}"/*
 
-echo "Downloading rhoas ${RHOAS_VER}"
-mkdir -p "$CONTAINER_OPT_DIR/rhoas"
-wget -q -O- "https://github.com/redhat-developer/app-services-cli/releases/download/v${RHOAS_VER}/rhoas_${RHOAS_VER}_linux_amd64.tar.gz" | \
-  tar xz --strip-components=1 -C "$CONTAINER_OPT_DIR/rhoas"
-rm -rf "${TMPDIR:?}"/*
-chmod -R +x "${CONTAINER_USR_BIN_DIR}"
-
 echo "Downloading submariner ${SUBMARINER_VER}"
 mkdir -p "$CONTAINER_OPT_DIR/submariner"
 wget -q -O- "https://github.com/submariner-io/releases/releases/download/v${SUBMARINER_VER}/subctl-v${SUBMARINER_VER}-linux-amd64.tar.xz" | \
@@ -149,7 +142,6 @@ rm -f rh-manifest.txt || true
   echo "odo ${ODO_VER} ${OPENSHIFT_CLIENTS_URL}/odo/${ODO_VER}"
   echo "tekton ${TKN_VER} ${OPENSHIFT_CLIENTS_URL}/pipeline/${TKN_VER}"
   echo "knative ${KN_VER} ${OPENSHIFT_CLIENTS_URL}/serverless/${KN_VER}"
-  echo "rhoas ${RHOAS_VER} https://github.com/redhat-developer/app-services-cli/tree/v${RHOAS_VER}"
   echo "submariner ${SUBMARINER_VER} https://github.com/submariner-io/subctl/tree/v${SUBMARINER_VER}"
   echo "kubevirt ${KUBEVIRT_VER} https://github.com/kubevirt/kubevirt/tree/v${KUBEVIRT_VER}"
   echo "skupper ${SKUPPER_VER} https://github.com/skupperproject/skupper/tree/${SKUPPER_VER}"

@@ -25,8 +25,6 @@ ADD container-root-x86_64.tgz /
 # Propagate tools to path and install bash autocompletion
 RUN \
     COMPDIR=$(pkg-config --variable=completionsdir bash-completion) && \
-    # install rhoas
-    ln -s /opt/rhoas/rhoas /usr/local/bin/rhoas && \
     # install submariner
     ln -s /opt/submariner/subctl /usr/local/bin/subctl && \
     # install kubevirt
@@ -40,7 +38,6 @@ RUN \
     helm completion bash > $COMPDIR/helm && \
     tkn completion bash > $COMPDIR/tkn && \
     virtctl completion bash > $COMPDIR/virtctl && \
-    rhoas completion bash > $COMPDIR/rhoas && \
     subctl completion bash > $COMPDIR/subctl && \
     odo completion bash > $COMPDIR/odo
 
