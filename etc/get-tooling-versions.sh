@@ -46,26 +46,6 @@ if command -v tkn &>/dev/null; then
   append_ver "tkn      |${TKN_VER#v}       |Tekton CLI"
 fi
 
-if command -v subctl &>/dev/null; then
-  SUBMARINER_VER=$(subctl version | grep -Eo 'v?[0-9]+\.[0-9]+\.[0-9]+')
-  append_ver "subctl   |${SUBMARINER_VER#v}|Submariner CLI"
-fi
-
-if command -v odo &>/dev/null; then
-  ODO_VER=$(odo version --client | grep -Eo 'v?[0-9]+\.[0-9]+\.[0-9]+')
-  append_ver "odo      |${ODO_VER#v}       |Red Hat OpenShift Developer CLI"
-fi
-
-if command -v virtctl &>/dev/null; then
-  KUBEVIRT_VER=$(virtctl version --client | grep -Eo 'GitVersion:"[^"]+"' | grep -Eo 'v?[0-9]+\.[0-9]+\.[0-9]+')
-  append_ver "virtctl  |${KUBEVIRT_VER#v}  |KubeVirt CLI"
-fi
-
-if command -v rhoas &>/dev/null; then
-  RHOAS_VER=$(rhoas version | grep -Eo 'v?[0-9]+\.[0-9]+\.[0-9]+')
-  append_ver "rhoas    |${RHOAS_VER#v}     |Red Hat OpenShift Application Services CLI"
-fi
-
 JQ_VER=$(jq --version)
 JQ_VER=${JQ_VER#jq-}
 append_ver "jq       |${JQ_VER#v}        |jq"

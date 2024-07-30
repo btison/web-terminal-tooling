@@ -71,14 +71,6 @@ echo "$(grep helm-linux-amd64$ sha256sum.txt | cut -d' ' -f1) helm-linux-amd64" 
 mv helm-linux-amd64 "$CONTAINER_USR_BIN_DIR/helm"
 rm -rf "${TMPDIR:?}"/*
 
-echo "Downloading odo ${ODO_VER}"
-curl -sSfL --insecure --remote-name-all \
-  "${OPENSHIFT_CLIENTS_URL}/odo/${ODO_VER}/sha256sum.txt" \
-  "${OPENSHIFT_CLIENTS_URL}/odo/${ODO_VER}/odo-linux-amd64.tar.gz"
-echo "$(grep odo-linux-amd64.tar.gz sha256sum.txt | cut -d' ' -f1) odo-linux-amd64.tar.gz" | sha256sum --check --status
-tar xzf odo-linux-amd64.tar.gz -C "$CONTAINER_USR_BIN_DIR" odo
-rm -rf "${TMPDIR:?}"/*
-
 echo "Downloading tekton ${TKN_VER}"
 curl -sSfL --insecure --remote-name-all \
   "${OPENSHIFT_CLIENTS_URL}/pipeline/${TKN_VER}/sha256sum.txt" \
@@ -95,28 +87,6 @@ echo "$(grep kn-linux-amd64.tar.gz sha256sum.txt | cut -d' ' -f1) kn-linux-amd64
 tar xzf kn-linux-amd64.tar.gz -C "$CONTAINER_USR_BIN_DIR" kn-linux-amd64
 mv "$CONTAINER_USR_BIN_DIR/kn-linux-amd64" "$CONTAINER_USR_BIN_DIR/kn"
 rm -rf "${TMPDIR:?}"/*
-
-echo "Downloading submariner ${SUBMARINER_VER}"
-mkdir -p "$CONTAINER_OPT_DIR/submariner"
-wget -q -O- "https://github.com/submariner-io/releases/releases/download/v${SUBMARINER_VER}/subctl-v${SUBMARINER_VER}-linux-amd64.tar.xz" | \
-  tar xJ --strip-components=1 -C "$CONTAINER_OPT_DIR/submariner"
-mv "$CONTAINER_OPT_DIR"/submariner/subctl* "$CONTAINER_OPT_DIR"/submariner/subctl
-rm -rf "${TMPDIR:?}"/*
-chmod -R +x "${CONTAINER_USR_BIN_DIR}"
-
-echo "Downloading kubevirt ${KUBEVIRT_VER}"
-mkdir -p "$CONTAINER_OPT_DIR/kubevirt/"
-wget -q -O "$CONTAINER_OPT_DIR/kubevirt/virtctl" "https://github.com/kubevirt/kubevirt/releases/download/v${KUBEVIRT_VER}/virtctl-v${KUBEVIRT_VER}-linux-amd64"
-chmod a+x "$CONTAINER_OPT_DIR/kubevirt/virtctl"
-rm -rf "${TMPDIR:?}"/*
-chmod -R +x "${CONTAINER_USR_BIN_DIR}"
-
-echo "Downloading kustomize ${KUSTOMIZE_VER}"
-mkdir -p "$CONTAINER_OPT_DIR/kustomize/"
-wget -q -O- "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VER}/kustomize_v${KUSTOMIZE_VER}_linux_amd64.tar.gz" | \
-  tar xz -C "$CONTAINER_OPT_DIR/kustomize/"
-rm -rf "${TMPDIR:?}"/*
-chmod -R +x "${CONTAINER_USR_BIN_DIR}"
 
 echo "Downloading skupper ${SKUPPER_VER}"
 mkdir -p "$CONTAINER_OPT_DIR/skupper/"
@@ -137,14 +107,10 @@ rm -f rh-manifest.txt || true
 {
   echo "oc ${OC_VER} ${OPENSHIFT_CLIENTS_URL}/ocp/${OC_VER}"
   echo "kubectl ${KUBECTL_VER} ${OPENSHIFT_CLIENTS_URL}/ocp/${OC_VER}"
-  echo "kustomize ${KUSTOMIZE_VER} https://github.com/kubernetes-sigs/kustomize/tree/kustomize/v${KUSTOMIZE_VER}"
   echo "helm ${HELM_VER} ${OPENSHIFT_CLIENTS_URL}/helm/${HELM_VER}"
-  echo "odo ${ODO_VER} ${OPENSHIFT_CLIENTS_URL}/odo/${ODO_VER}"
   echo "tekton ${TKN_VER} ${OPENSHIFT_CLIENTS_URL}/pipeline/${TKN_VER}"
   echo "knative ${KN_VER} ${OPENSHIFT_CLIENTS_URL}/serverless/${KN_VER}"
-  echo "submariner ${SUBMARINER_VER} https://github.com/submariner-io/subctl/tree/v${SUBMARINER_VER}"
-  echo "kubevirt ${KUBEVIRT_VER} https://github.com/kubevirt/kubevirt/tree/v${KUBEVIRT_VER}"
   echo "skupper ${SKUPPER_VER} https://github.com/skupperproject/skupper/tree/${SKUPPER_VER}"
 } >> rh-manifest.txt
 
-rm -rf "$CONTAINER_ROOT_DIR"
+# rm -rf "$CONTAINER_ROOT_DIR"

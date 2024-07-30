@@ -25,10 +25,6 @@ ADD container-root-x86_64.tgz /
 # Propagate tools to path and install bash autocompletion
 RUN \
     COMPDIR=$(pkg-config --variable=completionsdir bash-completion) && \
-    # install submariner
-    ln -s /opt/submariner/subctl /usr/local/bin/subctl && \
-    # install kubevirt
-    ln -s /opt/kubevirt/virtctl /usr/local/bin/virtctl && \
     # install kustomize
     ln -s /opt/kustomize/kustomize /usr/local/bin/kustomize && \
     # install bash completions
@@ -36,10 +32,7 @@ RUN \
     oc completion bash > $COMPDIR/oc && \
     kn completion bash > $COMPDIR/kn && \
     helm completion bash > $COMPDIR/helm && \
-    tkn completion bash > $COMPDIR/tkn && \
-    virtctl completion bash > $COMPDIR/virtctl && \
-    subctl completion bash > $COMPDIR/subctl && \
-    odo completion bash > $COMPDIR/odo
+    tkn completion bash > $COMPDIR/tkn
 
 COPY etc/initial_config /tmp/initial_config
 COPY etc/get-tooling-versions.sh /tmp/get-tooling-versions.sh
